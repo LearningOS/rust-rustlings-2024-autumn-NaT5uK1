@@ -6,15 +6,16 @@ fn main() {
     // In tests7, we should set up an environment variable
     // called `TEST_FOO`. Print in the standard output to let
     // Cargo do it.
+
+    // Get the current timestamp as the number of seconds since the Unix epoch.
     let timestamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
-        .as_secs(); // What's the use of this timestamp here?
-    let your_command = format!(
-        "TEST_FOO={}",
-        timestamp
-    );
-    println!("cargo:{}", your_command);
+        .as_secs();
+
+    // Print the environment variable instruction for Cargo.
+    println!("cargo:rustc-env=TEST_FOO={}", timestamp);
+
 
     // In tests8, we should enable "pass" feature to make the
     // testcase return early. Fill in the command to tell
